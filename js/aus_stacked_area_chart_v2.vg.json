@@ -1,0 +1,180 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "title": {
+        "text": "Australia (AUS) Electricity Generation by Energy Type (1989-2023)",
+        "fontSize": 16,
+        "anchor": "middle"
+    },
+    "config": {
+        "axis": {
+            "grid": false
+        },
+        "background": "transparent",
+        "view": {
+            "stroke": null
+        }
+    },
+    "data": {
+        "url": "https://raw.githubusercontent.com/monash-yluo/3179-a2-australia-green-energy/refs/heads/main/data/Table_O_FY_pivot.csv"
+    },
+    "transform": [
+        {
+            "filter": "datum.Jurisdiction === 'AUS'"
+        },
+        {
+            "fold": [
+                "Bagasse, wood",
+                "Biogas",
+                "Black coal",
+                "Brown coal",
+                "Geothermal",
+                "Hydro",
+                "Large-scale solar PV",
+                "Natural gas",
+                "Oil products",
+                "Small-scale solar PV",
+                "Wind",
+                "Other"
+            ],
+            "as": [
+                "EnergyType",
+                "Generation"
+            ]
+        },
+        {
+            "calculate": "if(datum.EnergyType === 'Black coal', 1, if(datum.EnergyType === 'Brown coal', 2, if(datum.EnergyType === 'Natural gas', 3, if(datum.EnergyType === 'Oil products', 4, if(datum.EnergyType === 'Hydro', 5, if(datum.EnergyType === 'Large-scale solar PV', 6, if(datum.EnergyType === 'Small-scale solar PV', 7, if(datum.EnergyType === 'Wind', 8, if(datum.EnergyType === 'Bagasse, wood', 9, if(datum.EnergyType === 'Biogas', 10, if(datum.EnergyType === 'Geothermal', 11, if(datum.EnergyType === 'Other', 12, 0))))))))))))",
+            "as": "stackOrder"
+        }
+    ],
+    "vconcat": [
+        {
+            "width": "container",
+            "height": 400,
+            "mark": {
+                "type": "area"
+            },
+            "encoding": {
+                "x": {
+                    "field": "Year",
+                    "type": "temporal",
+                    "title": "Year",
+                    "timeUnit": "year",
+                    "scale": {
+                        "domain": {
+                            "param": "brush"
+                        }
+                    }
+                },
+                "y": {
+                    "field": "Generation",
+                    "type": "quantitative",
+                    "title": "Generation (GWh)"
+                },
+                "color": {
+                    "field": "EnergyType",
+                    "type": "nominal",
+                    "title": "Energy Type",
+                    "scale": {
+                        "domain": [
+                            "Other",
+                            "Geothermal",
+                            "Biogas",
+                            "Bagasse, wood",
+                            "Wind",
+                            "Small-scale solar PV",
+                            "Large-scale solar PV",
+                            "Hydro",
+                            "Oil products",
+                            "Natural gas",
+                            "Brown coal",
+                            "Black coal"
+                        ],
+                        "range": [
+                            "#E8F5E9",
+                            "#C8E6C9",
+                            "#A5D6A7",
+                            "#81C784",
+                            "#66BB6A",
+                            "#4CAF50",
+                            "#43A047",
+                            "#56A0C8",
+                            "#FFB74D",
+                            "#FF9800",
+                            "#F57C00",
+                            "#E65100"
+                        ]
+                    },
+                    "legend": {
+                        "orient": "right",
+                        "columns": 1
+                    },
+                    "sort": [
+                        "Other",
+                        "Geothermal",
+                        "Biogas",
+                        "Bagasse, wood",
+                        "Wind",
+                        "Small-scale solar PV",
+                        "Large-scale solar PV",
+                        "Hydro",
+                        "Oil products",
+                        "Natural gas",
+                        "Brown coal",
+                        "Black coal"
+                    ]
+                },
+                "order": {
+                    "field": "stackOrder",
+                    "type": "quantitative"
+                },
+                "tooltip": [
+                    {
+                        "field": "Year",
+                        "type": "temporal",
+                        "title": "Year"
+                    },
+                    {
+                        "field": "EnergyType",
+                        "type": "nominal",
+                        "title": "Energy Type"
+                    },
+                    {
+                        "field": "Generation",
+                        "type": "quantitative",
+                        "title": "Generation (GWh)",
+                        "format": ".1f"
+                    }
+                ]
+            }
+        },
+        {
+            "width": "container",
+            "height": 75,
+            "mark": "line",
+            "encoding": {
+                "x": {
+                    "field": "Year",
+                    "type": "temporal",
+                    "title": "Year",
+                    "timeUnit": "year"
+                },
+                "y": {
+                    "field": "Total",
+                    "type": "quantitative",
+                    "title": "Total Generation (GWh)"
+                }
+            },
+            "params": [
+                {
+                    "name": "brush",
+                    "select": {
+                        "type": "interval",
+                        "encodings": [
+                            "x"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

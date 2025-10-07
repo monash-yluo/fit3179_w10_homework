@@ -1,0 +1,113 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Australia State Renewable Energy Rates in 2023 (Financial Year)",
+    "width": 600,
+    "height": 500,
+    "data": {
+        "url": "https://raw.githubusercontent.com/monash-yluo/fit3179_w9_homework/main/js/ne_10m_admin_1_states_provinces.topojson",
+        "format": {
+            "type": "topojson",
+            "feature": "ne_10m_admin_1_states_provinces"
+        }
+    },
+    "projection": {
+        "type": "mercator"
+    },
+    "layer": [
+        {
+            "transform": [
+                {
+                    "calculate": "'Data is not available in ' + datum.properties.name",
+                    "as": "note"
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "fill": "lightgray",
+                "stroke": "white"
+            },
+            "encoding": {
+                "tooltip": {
+                    "field": "note"
+                }
+            }
+        },
+        {
+            "transform": [
+                {
+                    "lookup": "properties.iso_3166_2",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/monash-yluo/fit3179_w9_homework/main/data/energy_state_fy_2023.csv"
+                        },
+                        "key": "state_code",
+                        "fields": [
+                            "renewable_percent",
+                            "state",
+                            "total_generation",
+                            "total_non_renewable",
+                            "total_renewable"
+                        ]
+                    }
+                },
+                {
+                    "calculate": "datum.renewable_percent == null ? 'N/A' : format(datum.renewable_percent, ',.0f') + ' %'",
+                    "as": "renewable_percent_label"
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "stroke": "#444",
+                "strokeWidth": 0.8
+            },
+            "encoding": {
+                "color": {
+                    "field": "renewable_percent",
+                    "type": "quantitative",
+                    "title": "Renewable Energy Percent (%)",
+                    "scale": {
+                        "domain": [
+                            0,
+                            100
+                        ],
+                        "scheme": "greens"
+                    },
+                    "legend": {
+                        "title": "Renewable Energy Percent (%)",
+                        "orient": "right"
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "properties.name",
+                        "type": "nominal",
+                        "title": "State"
+                    },
+                    {
+                        "field": "renewable_percent_label",
+                        "type": "nominal",
+                        "title": "Renewable Energy Percent"
+                    },
+                    {
+                        "field": "total_renewable",
+                        "type": "quantitative",
+                        "title": "Total Renewable Generation (GWh)",
+                        "format": ",.0f"
+                    },
+                    {
+                        "field": "total_non_renewable",
+                        "type": "quantitative",
+                        "title": "Total Non-Renewable Generation (GWh)",
+                        "format": ",.0f"
+                    },
+                    {
+                        "field": "total_generation",
+                        "type": "quantitative",
+                        "title": "Total Generation (GWh)",
+                        "format": ",.0f"
+                    }
+                ]
+            }
+        }
+    ]
+}
