@@ -122,7 +122,7 @@
 
                 <!-- 图表 -->
                 <div class="col-lg-8 mb-4">
-                    <div id="aus_stacked_area_chart" class="vis-container-80"></div>
+                    <div id="aus_stacked_area_chart" class="vis-container"></div>
                 </div>
             </div>
 
@@ -171,7 +171,7 @@
             // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
         }).catch(console.error);
 
-        var aus_stacked_area_chart_v2 = "js/aus_stacked_area_chart_v2.vg.json";
+        var aus_stacked_area_chart_v2 = "js/aus_stacked_area_chart_v3.vg.json";
         vegaEmbed('#aus_stacked_area_chart', aus_stacked_area_chart_v2).then(function (result) {
 
         }).catch(console.error);

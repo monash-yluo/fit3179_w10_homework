@@ -1,0 +1,67 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "data/stocks.csv"
+    },
+    "transform": [
+        {
+            "filter": "datum.symbol === 'AAPL'"
+        }
+    ],
+    "layer": [
+       
+        {
+            "mark": "line",
+            "encoding": {
+                "x": {
+                    "field": "date",
+                    "type": "temporal"
+                },
+                "y": {
+                    "field": "price",
+                    "type": "quantitative"
+                }
+            }
+        },
+   
+        {
+            "mark": {
+                "type": "rule",
+                "stroke": "green",
+                "strokeDash": [
+                    5,
+                    5
+                ]
+            },
+            "encoding": {
+                "y": {
+                    "field": "price",
+                    "type": "quantitative",
+                    "aggregate": "mean" 
+                }
+            }
+        },
+
+        {
+            "mark": {
+                "type": "text",
+                "dy": -5,
+                "align": "left",
+                "fontSize": 10
+            },
+            "encoding": {
+                "y": {
+                    "field": "price",
+                    "type": "quantitative",
+                    "aggregate": "mean"
+                },
+                "x": {
+                    "value": "yearmonth(2005-01-01)"
+                },
+                "text": {
+                    "signal": "'平均值: ' + format(mean('price'), '.1f')"
+                } 
+            }
+        }
+    ]
+}

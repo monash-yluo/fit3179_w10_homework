@@ -50,102 +50,153 @@
         {
             "width": "container",
             "height": 400,
-            "mark": {
-                "type": "area"
-            },
-            "encoding": {
-                "x": {
-                    "field": "Year",
-                    "type": "temporal",
-                    "title": "Year",
-                    "timeUnit": "year",
-                    "scale": {
-                        "domain": {
-                            "param": "brush"
+            "layer": [
+                {
+                    "mark": {
+                        "type": "area"
+                    },
+                    "encoding": {
+                        "x": {
+                            "field": "Year",
+                            "type": "temporal",
+                            "title": "Year",
+                            "timeUnit": "year",
+                            "scale": {
+                                "domain": {
+                                    "param": "brush"
+                                }
+                            }
+                        },
+                        "y": {
+                            "field": "Generation",
+                            "type": "quantitative",
+                            "title": "Generation (GWh)"
+                        },
+                        "color": {
+                            "field": "EnergyType",
+                            "type": "nominal",
+                            "title": "Energy Type",
+                            "scale": {
+                                "domain": [
+                                    "Other",
+                                    "Geothermal",
+                                    "Biogas",
+                                    "Bagasse, wood",
+                                    "Wind",
+                                    "Small-scale solar PV",
+                                    "Large-scale solar PV",
+                                    "Hydro",
+                                    "Oil products",
+                                    "Natural gas",
+                                    "Brown coal",
+                                    "Black coal"
+                                ],
+                                "range": [
+                                    "#E8F5E9",
+                                    "#C8E6C9",
+                                    "#A5D6A7",
+                                    "#81C784",
+                                    "#66BB6A",
+                                    "#4CAF50",
+                                    "#43A047",
+                                    "#56A0C8",
+                                    "#FFB74D",
+                                    "#FF9800",
+                                    "#F57C00",
+                                    "#E65100"
+                                ]
+                            },
+                            "legend": {
+                                "orient": "right",
+                                "columns": 1
+                            },
+                            "sort": [
+                                "Other",
+                                "Geothermal",
+                                "Biogas",
+                                "Bagasse, wood",
+                                "Wind",
+                                "Small-scale solar PV",
+                                "Large-scale solar PV",
+                                "Hydro",
+                                "Oil products",
+                                "Natural gas",
+                                "Brown coal",
+                                "Black coal"
+                            ]
+                        },
+                        "order": {
+                            "field": "stackOrder",
+                            "type": "quantitative"
+                        },
+                        "tooltip": [
+                            {
+                                "field": "Year",
+                                "type": "temporal",
+                                "title": "Year"
+                            },
+                            {
+                                "field": "EnergyType",
+                                "type": "nominal",
+                                "title": "Energy Type"
+                            },
+                            {
+                                "field": "Generation",
+                                "type": "quantitative",
+                                "title": "Generation (GWh)",
+                                "format": ".1f"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "data": {
+                        "values": [
+                            {
+                                "annotation_date": "2015-01-01",
+                                "label": "碳税实施",
+                                "color": "red"
+                            }
+                        ]
+                    },
+                    "mark": {
+                        "type": "rule"
+                    },
+                    "encoding": {
+                        "x": {
+                            "field": "annotation_date",
+                            "type": "temporal"
                         }
                     }
                 },
-                "y": {
-                    "field": "Generation",
-                    "type": "quantitative",
-                    "title": "Generation (GWh)"
-                },
-                "color": {
-                    "field": "EnergyType",
-                    "type": "nominal",
-                    "title": "Energy Type",
-                    "scale": {
-                        "domain": [
-                            "Other",
-                            "Geothermal",
-                            "Biogas",
-                            "Bagasse, wood",
-                            "Wind",
-                            "Small-scale solar PV",
-                            "Large-scale solar PV",
-                            "Hydro",
-                            "Oil products",
-                            "Natural gas",
-                            "Brown coal",
-                            "Black coal"
-                        ],
-                        "range": [
-                            "#E8F5E9",
-                            "#C8E6C9",
-                            "#A5D6A7",
-                            "#81C784",
-                            "#66BB6A",
-                            "#4CAF50",
-                            "#43A047",
-                            "#56A0C8",
-                            "#FFB74D",
-                            "#FF9800",
-                            "#F57C00",
-                            "#E65100"
+                {
+                    "data": {
+                        "values": [
+                            {
+                                "annotation_date": "2015-01-01",
+                                "label": "碳税实施",
+                                "color": "red"
+                            }
                         ]
                     },
-                    "legend": {
-                        "orient": "right",
-                        "columns": 1
+                    "mark": {
+                        "type": "text",
+                        "align": "left", 
+                        "baseline": "top", 
+                        "dx": 5, 
+                        "dy": -5
                     },
-                    "sort": [
-                        "Other",
-                        "Geothermal",
-                        "Biogas",
-                        "Bagasse, wood",
-                        "Wind",
-                        "Small-scale solar PV",
-                        "Large-scale solar PV",
-                        "Hydro",
-                        "Oil products",
-                        "Natural gas",
-                        "Brown coal",
-                        "Black coal"
-                    ]
-                },
-                "order": {
-                    "field": "stackOrder",
-                    "type": "quantitative"
-                },
-                "tooltip": [
-                    {
-                        "field": "Year",
-                        "type": "temporal",
-                        "title": "Year"
-                    },
-                    {
-                        "field": "EnergyType",
-                        "type": "nominal",
-                        "title": "Energy Type"
-                    },
-                    {
-                        "field": "Generation",
-                        "type": "quantitative",
-                        "title": "Generation (GWh)",
-                        "format": ".1f"
+                    "encoding": {
+                        "x": {
+                            "field": "annotation_date",
+                            "type": "temporal"
+                        },
+                        "text": {
+                            "datum": "重要事件"
+                        }
                     }
-                ]
-            }
+                }
+            ]
         },
         {
             "width": "container",
