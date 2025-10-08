@@ -42,10 +42,6 @@
                 "EnergyType",
                 "Generation"
             ]
-        },
-        {
-            "calculate": "if(datum.EnergyType === 'Black coal', 1, if(datum.EnergyType === 'Brown coal', 2, if(datum.EnergyType === 'Natural gas', 3, if(datum.EnergyType === 'Oil products', 4, if(datum.EnergyType === 'Hydro', 5, if(datum.EnergyType === 'Large-scale solar PV', 6, if(datum.EnergyType === 'Small-scale solar PV', 7, if(datum.EnergyType === 'Wind', 8, if(datum.EnergyType === 'Bagasse, wood', 9, if(datum.EnergyType === 'Biogas', 10, if(datum.EnergyType === 'Geothermal', 11, if(datum.EnergyType === 'Other', 12, 0))))))))))))",
-            "as": "stackOrder"
         }
     ],
     "layer": [
@@ -82,34 +78,7 @@
                     "type": "nominal",
                     "title": "Energy Type",
                     "scale": {
-                        "domain": [
-                            "Other",
-                            "Geothermal",
-                            "Biogas",
-                            "Bagasse, wood",
-                            "Wind",
-                            "Small-scale solar PV",
-                            "Large-scale solar PV",
-                            "Hydro",
-                            "Oil products",
-                            "Natural gas",
-                            "Brown coal",
-                            "Black coal"
-                        ],
-                        "range": [
-                            "#E8F5E9",
-                            "#C8E6C9",
-                            "#A5D6A7",
-                            "#81C784",
-                            "#66BB6A",
-                            "#4CAF50",
-                            "#43A047",
-                            "#56A0C8",
-                            "#FFB74D",
-                            "#FF9800",
-                            "#F57C00",
-                            "#E65100"
-                        ]
+                    
                     },
                     "legend": {
                         "orient": "right",
@@ -136,10 +105,6 @@
                         "value": 1
                     },
                     "value": 0.2
-                },
-                "order": {
-                    "field": "stackOrder",
-                    "type": "quantitative"
                 },
                 "tooltip": [
                     {
